@@ -1,0 +1,202 @@
+[
+  {
+    "id": 1,
+    "name": "عسل طبيعي جبلي",
+    "name_en": "Mountain Honey",
+    "description": "عسل جبلي طبيعي 100% من جبال الأطلس، طعمه غني ولونه ذهبي.",
+    "price_pi": 0.05,
+    "price_usd": 60,
+    "category": "منتجات طبيعية",
+    "image": "images/natural1_honey.jpg"
+  },
+  {
+    "id": 2,
+    "name": "زيت أركان عضوي",
+    "name_en": "Organic Argan Oil",
+    "description": "زيت أركان بكر للطبخ والعناية بالبشرة، معصور يدوياً.",
+    "price_pi": 0.07,
+    "price_usd": 80,
+    "category": "منتجات طبيعية",
+    "image": "images/natural2_argan.jpg"
+  },
+  {
+    "id": 3,
+    "name": "زيتون معصور طازج",
+    "name_en": "Fresh Pressed Olive Oil",
+    "description": "زيت زيتون نقي معصور حديثاً من مزارع محلية.",
+    "price_pi": 0.04,
+    "price_usd": 45,
+    "category": "منتجات طبيعية",
+    "image": "images/natural3_olive.jpg"
+  },
+  {
+    "id": 4,
+    "name": "زعفران الأطلس",
+    "name_en": "Atlas Saffron",
+    "description": "زعفران عالي الجودة من الأطلس لذواقة الطهي والعطور.",
+    "price_pi": 0.13,
+    "price_usd": 150,
+    "category": "منتجات تقليدية عالمية",
+    "image": "images/traditional1_saffron.jpg"
+  },
+  {
+    "id": 5,
+    "name": "شاي ماتشا ياباني",
+    "name_en": "Japanese Matcha Tea",
+    "description": "ماتشا عضوي عالي الجودة مستورد من اليابان.",
+    "price_pi": 0.10,
+    "price_usd": 120,
+    "category": "منتجات تقليدية عالمية",
+    "image": "images/traditional2_matcha.jpg"
+  },
+  {
+    "id": 6,
+    "name": "بهارات هندية مختارة",
+    "name_en": "Selected Indian Spices",
+    "description": "مجموعة من التوابل الهندية التقليدية المختارة بعناية.",
+    "price_pi": 0.06,
+    "price_usd": 70,
+    "category": "منتجات تقليدية عالمية",
+    "image": "images/traditional3_spices.jpg"
+  },
+  {
+    "id": 7,
+    "name": "زخرفة جدارية تقليدية",
+    "name_en": "Traditional Wall Ornament",
+    "description": "زخرفة يدوية بنقوش تقليدية من صنع حرفيين محليين.",
+    "price_pi": 0.21,
+    "price_usd": 250,
+    "category": "زخارف",
+    "image": "images/decor1_wall.jpg"
+  },
+  {
+    "id": 8,
+    "name": "لوحة فسيفساء ملونة",
+    "name_en": "Colorful Mosaic Panel",
+    "description": "لوحة فسيفساء مزخرفة بألوان زاهية تناسب الديكور التقليدي.",
+    "price_pi": 0.27,
+    "price_usd": 320,
+    "category": "زخارف",
+    "image": "images/decor2_mosaic.jpg"
+  },
+  {
+    "id": 9,
+    "name": "تمثال زخرفي صغير",
+    "name_en": "Small Decorative Statue",
+    "description": "تمثال زخرفي صغير بنقوش تراثية لتزيين المنزل.",
+    "price_pi": 0.08,
+    "price_usd": 95,
+    "category": "زخارف",
+    "image": "images/decor3_statue.jpg"
+  },
+  {
+    "id": 10,
+    "name": "إبريق فخار أصيل",
+    "name_en": "Authentic Clay Pitcher",
+    "description": "فخار مطلي يدوياً بنقوش تقليدية للاستخدام والعرض.",
+    "price_pi": 0.10,
+    "price_usd": 120,
+    "category": "فخار",
+    "image": "images/pottery1_pitcher.jpg"
+  },
+  {
+    "id": 11,
+    "name": "مزهرية فخار مزخرفة",
+    "name_en": "Decorative Clay Vase",
+    "description": "مزهرية فخارية بنقوش محلية وإطلالة تقليدية.",
+    "price_pi": 0.12,
+    "price_usd": 140,
+    "category": "فخار",
+    "image": "images/pottery2_vase.jpg"
+  },
+  {
+    "id": 12,
+    "name": "طبق فخاري مطلي",
+    "name_en": "Painted Clay Plate",
+    "description": "طبق فخاري مزخرف يدوياً مناسب للتقديم أو للعرض.",
+    "price_pi": 0.06,
+    "price_usd": 75,
+    "category": "فخار",
+    "image": "images/pottery3_plate.jpg"
+  },
+  {
+    "id": 13,
+    "name": "حقيبة منسوجة تقليدية",
+    "name_en": "Traditional Woven Bag",
+    "description": "حقيبة يدوية منسوجة بألوان ونقوش تقليدية.",
+    "price_pi": 0.08,
+    "price_usd": 90,
+    "category": "حقائب تقليدية",
+    "image": "images/bag1_woven.jpg"
+  },
+  {
+    "id": 14,
+    "name": "كيس جلدي مزخرف",
+    "name_en": "Decorated Leather Pouch",
+    "description": "حقيبة جلدية صغيرة بنقوش تقليدية للحفظ اليومي.",
+    "price_pi": 0.09,
+    "price_usd": 110,
+    "category": "حقائب تقليدية",
+    "image": "images/bag2_leather.jpg"
+  },
+  {
+    "id": 15,
+    "name": "حقيبة كتف تقليدية",
+    "name_en": "Traditional Shoulder Bag",
+    "description": "حقيبة كتف كبيرة مصنوعة يدوياً بتطريز تقليدي.",
+    "price_pi": 0.11,
+    "price_usd": 130,
+    "category": "حقائب تقليدية",
+    "image": "images/bag3_shoulder.jpg"
+  },
+  {
+    "id": 16,
+    "name": "باب خشبي مزخرف بنقوش",
+    "name_en": "Small Decorative Wooden Door",
+    "description": "باب خشبي مزخرف بنقوش تقليدية للزينة أو الخزائن.",
+    "price_pi": 0.68,
+    "price_usd": 800,
+    "category": "أبواب خشبية",
+    "image": "images/door1_small.jpg"
+  },
+  {
+    "id": 17,
+    "name": "لوح باب منقوش",
+    "name_en": "Carved Door Panel",
+    "description": "لوح خشبي مزخرف يمكن استخدامه كباب ديكور أو كسيج داخلي.",
+    "price_pi": 1.02,
+    "price_usd": 1200,
+    "category": "أبواب خشبية",
+    "image": "images/door2_panel.jpg"
+  },
+  {
+    "id": 18,
+    "name": "إطار باب مزخرف صغير",
+    "name_en": "Small Ornamental Door Frame",
+    "description": "إطار خشبي مزخرف بإتقان لإضفاء طابع تقليدي على المداخل.",
+    "price_pi": 0.55,
+    "price_usd": 650,
+    "category": "أبواب خشبية",
+    "image": "images/door3_frame.jpg"
+  },
+  {
+    "id": 19,
+    "name": "قلادة فضة نقش تقليدي",
+    "name_en": "Silver Pendant with Traditional Motif",
+    "description": "مجوهرات فضية مصممة يدوياً بنقوش تراثية.",
+    "price_pi": 0.25,
+    "price_usd": 300,
+    "category": "مجوهرات",
+    "image": "images/jewel1_necklace.jpg"
+  },
+  {
+    "id": 20,
+    "name": "خاتم نحاسي مطرز",
+    "name_en": "Engraved Copper Ring",
+    "description": "خاتم نحاسي منحوت بتصميم تقليدي مميز.",
+    "price_pi": 0.07,
+    "price_usd": 85,
+    "category": "مجوهرات",
+    "image": "images/jewel2_ring.jpg"
+  }
+]
