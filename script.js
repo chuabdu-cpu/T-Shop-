@@ -1,87 +1,35 @@
-js
+// دالة لجلب المنتجات من ملف JSON وعرضها
+async function loadProducts() {
+    try {
+        const response = await fetch('products.json');
+        const products = await response.json();
+        const container = document.getElementById('products-container');
 
-// 1. عرض سعر Pi بالدولار تلقائياً
+        products.forEach(product => {
+            const productHTML = `
+                <div class="product-card">
+                    <img src="${product.image}" alt="${product.name}">
+                    <h3>${product.name}</h3>
+                    <p>${product.description}</p>
+                    <div class="price-box">
+                        <span class="pi-price">𝝅 ${product.price_pi}</span>
+                        <span class="usd-price">($${product.price_usd})</span>
+                    </div>
+                    <button onclick="handlePayment(${product.price_pi})">شراء الآن</button>
+                </div>
+            `;
+            container.innerHTML += productHTML;
+        });
+    } catch (error) {
+        console.error("خطأ في تحميل المنتجات:", error);
+    }
+}
 
-async function fetchPiPrice() {
-
-try {
-
-const response = await fetch("https: //api.coingecko.com/api/v3/simple 2✓✓price?ids=pi-network&vs_currencies= usd");
-
-const data = await response.json(); const piPrice = data["pi-network"].usd; document.getElementById( "pi-price").innerText = 1 π = piPrice;
-
-} catch (error) {
-
-console.error)"فشل في جلب سعر :"
-
-error);
-
-{
-
-{
-
-fetchPiPrice();
-
-//2 زر تحميل التطبيق
-
-document.getElementById("downloa dBtn").addEventListener("click", () => {
-
-window.location.href = "https://tshop0213.pinet.com/ عدل الرابط
-
-حسب الحاجة
-
-;({// 3 تحميل المنتجات تلقائياً من ملف
-
-products.json
-
-async function loadProducts() { try {
-
-24
-
-const response = await fetch("products.json"); const products = await response.json();
-
-const container = document.getEle mentById("product-list");
-
-products.forEach(product => { const item = document.createElement("div"); item.className = "product-item"; item.innerHTML = ` <h3>product.name</h3> <p>{product.description}</p> >p<السعر: product.price} π</p<
-
-container.appendChild(item);
-
-;({
-
-} catch (error) {
-
-18:57
-
-": فشل تحميل المنتجات")console.error error);
-
-{
-
-loadProducts();{
-
-{
+// دالة معالجة الدفع الخاصة بـ Pi Network
+function handlePayment(amount) {
+    // هنا يتم استدعاء Pi SDK لإتمام العملية
+    console.log("بدء عملية دفع بمبلغ: " + amount + " Pi");
+    // بمجرد نجاح هذه العملية، ستكتمل الخانة الأخيرة في قائمة Pi
+}
 
 loadProducts();
-
-0
-
-// 4. البحث عن المنتجات
-
-document.getElementById("searchInp ut").addEventListener("input", function 0{
-
-const keyword = this.value.toLowerCase();
-
-const items = document.querySelect
-
-orAll(".product-item");
-
-items.forEach(item => {
-
-item.style.display = item.innerText.
-
-toLowerCase().includes(keyword) ?
-
-"block": "none";
-
-;({
-
-;
