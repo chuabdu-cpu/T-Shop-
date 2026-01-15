@@ -77,5 +77,27 @@ margin: 5px 0;
 {
 
 {
+{.price-box {
+    margin: 10px 0;
+    font-weight: bold;
+}
 
-{
+.pi-price {
+    color: #8a2be2; /* لون بنفسجي مثل Pi */
+    font-size: 1.2em;
+}
+
+.usd-price {
+    color: #666;
+    font-size: 0.9em;
+    margin-left: 5px;
+}
+
+button {
+    background-color: #8a2be2;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
