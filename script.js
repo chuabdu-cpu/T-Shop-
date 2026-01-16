@@ -1,44 +1,54 @@
-async function loadProducts() {
-    try {
-        // تأكد من أن الاسم هنا هو 'product.json' ليتطابق مع ملفك في GitHub
-        const response = await fetch('product.json'); 
-        const products = await response.json();
-        const container = document.getElementById('products-container');
-        container.innerHTML = ""; 
+// قاموس اللغات لدعم Web3
+const translations = {
+    ar: { title: "متجر تي - T-Shop", buy: "شراء بـ Pi", settings: "إعدادات Web3", lang: "اللغة", wallet: "المحفظة" },
+    en: { title: "T-Shop", buy: "Pay with Pi", settings: "Web3 Settings", lang: "Language", wallet: "Wallet" },
+    fr: { title: "T-Shop", buy: "Payer avec Pi", settings: "Paramètres Web3", lang: "Langue", wallet: "Portefeuille" }
+};
 
-        products.forEach(product => {
-            const productHTML = `
-                <div class="product-card">
-                    <img src="${product.image}" alt="${product.name}">
-                    <h3>${product.name}</h3>
-                    <p>${product.description}</p>
-                    <div class="price-container">
-                        <span class="pi-price">𝝅 ${product.price_pi}</span>
-                        <span class="usd-price">($${product.price_usd})</span>
+// وظيفة تبديل قائمة الإعدادات الزجاجية
+function toggleSettings() {
+    const menu = document.getElementById('settings-menu');
+    menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+}
+
+// تغيير اللغة وتحديث الواجهة فوراً
+function changeLanguage(lang) {
+    document.title = translations[lang].title;
+    const titleElement = document.querySelector('h1');
+    if(titleElement) titleElement.innerText = translations[lang].title;
+    renderProducts(lang); 
+}
+
+// تحميل وعرض الـ 20 منتجاً مع الصور الأربعة لكل منتج
+async function renderProducts(lang = 'ar') {
+    try {
+        const response = await fetch('product.json');
+        const products = await response.json();
+        const container = document.getElementById('product-container');
+        
+        if(!container) return;
+
+        container.innerHTML = products.map(product => `
+            <div class="product-card">
+                <div class="image-container">
+                    <div class="product-slider" id="slider-${product.id}">
+                        ${product.images.map(img => `<img src="${img}" alt="${product.name}">`).join('')}
                     </div>
-                    <button class="buy-btn" onclick="onBuyClicked('${product.name}', ${product.price_pi})">شراء الآن</button>
                 </div>
-            `;
-            container.innerHTML += productHTML;
-        });
+                <h3>${product.name}</h3>
+                <p>${product.description}</p>
+                <div class="price-tag">π ${product.price}</div>
+                <button class="buy-btn" onclick="initiatePayment(${product.price}, '${product.name}')">
+                    <i class="fas fa-wallet"></i> ${translations[lang].buy}
+                </button>
+            </div>
+        `).join('');
     } catch (error) {
-        console.error("خطأ في تحميل المنتجات:", error);
-        document.getElementById('products-container').innerHTML = "فشل تحميل المنتجات. تأكد من وجود ملف product.json";
+        console.error("خطأ في تحميل بيانات المنتجات:", error);
     }
 }
 
-function onBuyClicked(productName, amount) {
-    const paymentData = {
-        amount: amount,
-        memo: "شراء " + productName + " من T-Shop",
-        metadata: { productName: productName }
-    };
-    window.Pi.createPayment(paymentData, {
-        onReadyForServerApproval: (id) => console.log("Pending...", id),
-        onReadyForServerCompletion: (id, txid) => alert("تم الدفع بنجاح!"),
-        onCancel: (id) => console.log("Cancelled"),
-        onError: (error, payment) => console.error(error)
-    });
-}
-
-loadProducts();
+// تشغيل الدالة عند فتح التطبيق
+document.addEventListener('DOMContentLoaded', () => {
+    renderProducts();
+});
