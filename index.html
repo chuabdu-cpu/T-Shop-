@@ -3,85 +3,209 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>T-Shop | متجر باي التقليدي</title>
-    
-    <script src="https://sdk.minepi.com/pi-sdk.js"></script>
-    
-    <link rel="stylesheet" href="style.css">
-    
+    <title>T-Shop | Web3 Experience</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* تنسيقات سريعة لضمان ظهور السعرين بشكل جيد */
+        :root {
+            --primary-purple: #6c5ce7;
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --text-color: #ffffff;
+        }
+
+        body {
+            background: radial-gradient(circle at center, #1a1a2e 0%, #16213e 100%);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        /* رأس الصفحة والأعدادات */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+
+        .settings-container { position: relative; }
+
+        .settings-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .settings-btn:hover { transform: rotate(90deg); }
+
+        /* القائمة الزجاجية للإعدادات */
+        .settings-menu {
+            position: absolute;
+            top: 50px;
+            left: 0;
+            width: 250px;
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 20px;
+            display: none;
+            z-index: 1000;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        /* بطاقات المنتجات 3D */
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            padding: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
         }
+
         .product-card {
-            border: 1px solid #ddd;
-            border-radius: 12px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
             padding: 15px;
             text-align: center;
-            background: #fff;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
         }
-        .product-card img {
-            max-width: 100%;
+
+        .product-card:hover {
+            transform: translateY(-10px) rotateY(10deg);
+            border-color: var(--primary-purple);
+        }
+
+        .image-container {
+            width: 100%;
             height: 200px;
-            object-fit: cover;
-            border-radius: 8px;
+            overflow: hidden;
+            border-radius: 15px;
+            position: relative;
         }
-        .price-container {
-            margin: 15px 0;
+
+        .product-slider {
             display: flex;
-            flex-direction: column;
-            align-items: center;
+            transition: transform 0.5s ease;
+            height: 100%;
         }
-        .pi-price {
-            color: #8a2be2;
-            font-size: 1.4em;
+
+        .product-slider img {
+            min-width: 100%;
+            object-fit: contain;
+        }
+
+        .price-tag {
+            font-size: 1.5rem;
+            color: #00d2ff;
+            margin: 15px 0;
             font-weight: bold;
         }
-        .usd-price {
-            color: #666;
-            font-size: 0.9em;
-        }
+
         .buy-btn {
-            background-color: #8a2be2;
-            color: white;
+            background: linear-gradient(45deg, var(--primary-purple), #a29bfe);
             border: none;
-            padding: 10px 25px;
-            border-radius: 25px;
+            padding: 12px 25px;
+            border-radius: 12px;
+            color: white;
+            font-weight: bold;
+            width: 100%;
             cursor: pointer;
-            font-size: 1.1em;
-            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
-        .buy-btn:hover {
-            background-color: #5d1a99;
+
+        /* أيقونات Web3 */
+        .wallet-badge {
+            font-size: 0.8rem;
+            background: rgba(108, 92, 231, 0.2);
+            padding: 5px 10px;
+            border-radius: 20px;
+            border: 1px solid var(--primary-purple);
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>T-Shop</h1>
-        <p>تسوق المنتجات التقليدية باستخدام عملة Pi</p>
+        <h1 id="app-title">T-Shop</h1>
+        <div class="settings-container">
+            <button class="settings-btn" onclick="toggleMenu()"><i class="fas fa-cog"></i></button>
+            <div class="settings-menu" id="settingsMenu">
+                <h4 id="settings-label">إعدادات Web3</h4>
+                <div style="margin-bottom: 15px;">
+                    <label id="lang-label">اللغة:</label>
+                    <select onchange="changeLang(this.value)" style="width: 100%; padding: 5px; border-radius: 5px;">
+                        <option value="ar">العربية</option>
+                        <option value="en">English</option>
+                        <option value="fr">Français</option>
+                    </select>
+                </div>
+                <div class="wallet-badge">
+                    <i class="fas fa-wallet"></i> <span id="wallet-addr">GD2UC...24PGV</span>
+                </div>
+            </div>
+        </div>
     </header>
 
-    <main id="products-container" class="products-grid">
-        <p>جاري تحميل المنتجات...</p>
-    </main>
+    <div class="products-grid" id="product-container">
+        </div>
 
-    <footer>
-        <p>© 2026 T-Shop - جميع الحقوق محفوظة لشبكة Pi</p>
-    </footer>
-
-    <script src="script.js"></script>
-    
     <script>
-        // تهيئة Pi SDK عند تحميل الصفحة
-        const Pi = window.Pi;
-        Pi.init({ version: "2.0", sandbox: true }); // sandbox: true للتجربة (Testnet)
+        const translations = {
+            ar: { title: "متجر تي", settings: "إعدادات Web3", lang: "اللغة", buy: "شراء بـ Pi" },
+            en: { title: "T-Shop", settings: "Web3 Settings", lang: "Language", buy: "Pay with Pi" },
+            fr: { title: "T-Shop", settings: "Paramètres Web3", lang: "Langue", buy: "Payer avec Pi" }
+        };
+
+        function toggleMenu() {
+            const menu = document.getElementById('settingsMenu');
+            menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function changeLang(lang) {
+            document.getElementById('app-title').innerText = translations[lang].title;
+            document.getElementById('settings-label').innerText = translations[lang].settings;
+            document.getElementById('lang-label').innerText = translations[lang].lang;
+            renderProducts(lang);
+        }
+
+        async function renderProducts(lang = 'ar') {
+            try {
+                const response = await fetch('product.json');
+                const products = await response.json();
+                const container = document.getElementById('product-container');
+                
+                container.innerHTML = products.map(p => `
+                    <div class="product-card">
+                        <div class="image-container">
+                            <div class="product-slider" id="slider-${p.id}">
+                                ${p.images.map(img => `<img src="${img}" alt="${p.name}">`).join('')}
+                            </div>
+                        </div>
+                        <h3>${p.name}</h3>
+                        <p>${p.description}</p>
+                        <div class="price-tag">π ${p.price}</div>
+                        <button class="buy-btn" onclick="initPayment(${p.price})">
+                            <i class="fab fa-ethereum"></i> ${translations[lang].buy}
+                        </button>
+                    </div>
+                `).join('');
+            } catch (e) { console.error("Error loading products"); }
+        }
+
+        renderProducts();
     </script>
 </body>
 </html>
