@@ -1,0 +1,79 @@
+import { Trash2, Heart } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { formatPiAndUSD } from '@/lib/piConverter';
+
+interface CartItem {
+  id: number;
+  productId: number;
+  name: string;
+  image: string;
+  price: number;
+  quantity: number;
+  savedForLater: boolean;
+}
+
+export default function Cart() {
+  const [cartItems, setCartItems] = useState<CartItem[]>([
+    {
+      id: 1,
+      productId: 1,
+      name: 'منتج تجريبي 1',
+      image: 'https://via.placeholder.com/100',
+      price: 10,
+      quantity: 2,
+      savedForLater: false,
+    },
+  ]);
+
+  const [savedItems, setSavedItems] = useState<CartItem[]>([]);
+
+  const handleQuantityChange = (id: number, newQuantity: number) => {
+    if (newQuantity < 1) return;
+    setCartItems(
+      cartItems.map((item) =>
+        item.id === id ? { ...item, quantity: newQuantity } : item
+      )
+    );
+  };
+
+  const handleRemoveItem = (id: number) => {
+    setCartItems(cartItems.filter((item) => item.id !== id));
+  };
+
+  const handleSaveForLater = (id: number) => {
+    const item = cartItems.find((item) => item.id === id);
+    if (item) {
+      setSavedItems([...savedItems, item]);
+      handleRemoveItem(id);
+    }
+  };
+
+  const handleMoveToCart = (id: number) => {
+    const item = savedItems.find((item) => item.id === id);
+    if (item) {
+      setCartItems([...cartItems, { ...item, savedForLater: false }]);
+      setSavedItems(savedItems.filter((item) => item.id !== id));
+    }
+  };
+
+  const calculateTotal = (items: CartItem[]) => {
+    return items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  };
+
+  const subtotal = calculateTotal(cartItems);
+  const tax = Math.round(subtotal * 0.15);
+  const shipping = 50;
+  const total = subtotal + tax + shipping;
+
+  const { pi: piTotal, usd: usdTotal } = formatPiAndUSD(total);
+
+  return (
+    <div className="min-h-screen bg-gray-50 py-8">
+      <div className="max-w-6xl mx-auto px-4">
+        <h1 className="text-3xl font-bold mb-8">عربة التسوق</h1>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Cart Items */}
+          <div className="lg:col-span-2 space-y-4">
+            {cartItems.length === 0 ? (
+              <div className="bg-white p-8 rounded-lg text-center">

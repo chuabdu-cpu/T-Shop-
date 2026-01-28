@@ -1,0 +1,99 @@
+
+interface TrackingStep {
+  status: 'completed' | 'current' | 'pending';
+  title: string;
+  description: string;
+  timestamp?: string;
+  icon: React.ReactNode;
+}
+
+export default function OrderTracking() {
+  const trackingSteps: TrackingStep[] = [
+    {
+      status: 'completed',
+      title: 'تم الشحن',
+      description: 'تم شحن طلبك من المستودع',
+      timestamp: '2024-01-20 10:30 AM',
+      icon: <CheckCircle size={24} />,
+    },
+    {
+      status: 'current',
+      title: 'في الطريق',
+      description: 'الطرد في طريقه إليك',
+      timestamp: 'متوقع: 2024-01-22',
+      icon: <Truck size={24} />,
+    },
+    {
+      status: 'pending',
+      title: 'سيتم التوصيل',
+      description: 'سيتم توصيل الطرد إلى عنوانك',
+      icon: <MapPin size={24} />,
+    },
+    {
+      status: 'pending',
+      title: 'تم التوصيل',
+      description: 'تم استلام الطرد بنجاح',
+      icon: <Package size={24} />,
+    },
+  ];
+
+  return (
+    <div className="min-h-screen bg-gray-50 py-8">
+      <div className="max-w-4xl mx-auto px-4">
+        <h1 className="text-3xl font-bold mb-2">تتبع الطلب</h1>
+        <p className="text-gray-600 mb-8">رقم الطلب: #TS-2024-001234</p>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="lg:col-span-2">
+            <div className="bg-white p-8 rounded-lg shadow-md">
+              <div className="space-y-8">
+                {trackingSteps.map((step, index) => (
+                  <div key={index} className="flex gap-4">
+                    <div className="flex flex-col items-center">
+                      <div
+                        className={`w-12 h-12 rounded-full flex items-center justify-center ${
+                          step.status === 'completed'
+                            ? 'bg-green-100 text-green-600'
+                            : step.status === 'current'
+                            ? 'bg-blue-100 text-blue-600 animate-pulse'
+                            : 'bg-gray-100 text-gray-400'
+                        }`}
+                      >
+                        {step.icon}
+                      </div>
+                      {index < trackingSteps.length - 1 && (
+                        <div
+                          className={`w-1 h-12 mt-2 ${
+                            step.status === 'completed' ? 'bg-green-200' : 'bg-gray-200'
+                          }`}
+                        />
+                      )}
+                    </div>
+
+                    <div className="pt-2">
+                      <h3 className="text-lg font-bold mb-1">{step.title}</h3>
+                      <p className="text-gray-600 mb-2">{step.description}</p>
+                      {step.timestamp && (
+                        <p className="text-sm text-gray-500">{step.timestamp}</p>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="lg:col-span-1">
+            <div className="bg-white p-6 rounded-lg shadow-md sticky top-20 space-y-6">
+              <div>
+                <h2 className="text-lg font-bold mb-4">تفاصيل الطلب</h2>
+                <div className="space-y-3 pb-4 border-b">
+                  <div className="flex justify-between text-sm">
+                    <span className="text-gray-600">رقم الطلب</span>
+                    <span className="font-semibold">#TS-2024-001234</span>
+                  </div>
+                  <div className="flex justify-between text-sm">
+                    <span className="text-gray-600">تاريخ الطلب</span>
+                    <span className="font-semibold">2024-01-20</span>
+                  </div>
+                  <div className="flex justify-between text-sm">
